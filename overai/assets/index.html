@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OverAI</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  #dragBar {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    background: #1e293b;
+    -webkit-app-region: drag;
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-radius: 15px 15px 0 0;
+  }
+
+  #dragBar button, #dragBar select {
+    -webkit-app-region: no-drag;
+  }
+
+  .bar-btn {
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #e2e8f0;
+    background: rgba(255,255,255,0.12);
+    transition: background 0.15s;
+  }
+  .bar-btn:hover { background: rgba(255,255,255,0.25); }
+
+  #closeBtn { margin-right: 6px; }
+
+  #aiSelector {
+    height: 22px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.12);
+    color: #e2e8f0;
+    font-size: 12px;
+    padding: 0 6px;
+    cursor: pointer;
+    outline: none;
+    margin-left: 2px;
+  }
+  #aiSelector option { background: #1e293b; color: #e2e8f0; }
+
+  .spacer { flex: 1; }
+
+  .transparency-controls {
+    display: flex;
+    gap: 4px;
+  }
+
+  #loadingOverlay {
+    position: fixed;
+    top: 30px; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 14px;
+    z-index: 999;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(148,163,184,0.3);
+    border-top-color: #94a3b8;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+  <div id="dragBar">
+    <button id="closeBtn" class="bar-btn" title="Hide">&#x2715;</button>
+    <select id="aiSelector">
+      <option value="Grok">Grok</option>
+      <option value="Gemini">Gemini</option>
+      <option value="ChatGPT">ChatGPT</option>
+      <option value="Claude">Claude</option>
+      <option value="DeepSeek">DeepSeek</option>
+    </select>
+    <div class="spacer"></div>
+    <div class="transparency-controls">
+      <button id="decBtn" class="bar-btn" title="Decrease transparency">&#x2212;</button>
+      <button id="incBtn" class="bar-btn" title="Increase transparency">&#x2b;</button>
+    </div>
+  </div>
+
+  <div id="loadingOverlay">
+    <div class="spinner"></div>
+    Loading...
+  </div>
+
+  <script>
+    async function waitForApi() {
+      while (!window.pywebview || !window.pywebview.api) {
+        await new Promise(r => setTimeout(r, 50));
+      }
+    }
+
+    document.getElementById('closeBtn').addEventListener('click', async () => {
+      await waitForApi();
+      window.pywebview.api.hide_window();
+    });
+
+    document.getElementById('aiSelector').addEventListener('change', async (e) => {
+      await waitForApi();
+      window.pywebview.api.switch_ai(e.target.value);
+    });
+
+    document.getElementById('decBtn').addEventListener('click', async () => {
+      await waitForApi();
+      window.pywebview.api.decrease_transparency();
+    });
+
+    document.getElementById('incBtn').addEventListener('click', async () => {
+      await waitForApi();
+      window.pywebview.api.increase_transparency();
+    });
+
+    window.addEventListener('pywebviewready', () => {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+OverAI is a sleek, always-on-top Windows overlay that brings powerful AI chat services directly to your desktop.
+Seamlessly switch between Grok, ChatGPT, Claude, DeepSeek, Gemini, or any custom endpoint with the built-in selector, and interact via text or voice.
+Adjust the transparency, hide or show with Ctrl+G, and enjoy a frameless window designed to blend into your workflow—over any app, at any time.
