@@ -16,7 +16,7 @@ _current_hotkey = None
 _hotkey_id = None
 
 
-def load_custom_hotkey():
+def load_custom_hotkey() -> str:
     """Load a user-defined hotkey from disk, or return the default."""
     global _current_hotkey
     if TRIGGER_FILE.exists():
@@ -32,7 +32,7 @@ def load_custom_hotkey():
     return _current_hotkey
 
 
-def save_custom_hotkey(hotkey_str):
+def save_custom_hotkey(hotkey_str: str) -> None:
     """Persist a new hotkey string to disk."""
     global _current_hotkey
     TRIGGER_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -42,7 +42,7 @@ def save_custom_hotkey(hotkey_str):
     print(f"New OverAI hotkey saved: {hotkey_str}", flush=True)
 
 
-def register_hotkey(api):
+def register_hotkey(api: object) -> None:
     """Register the global hotkey that toggles the overlay."""
     global _hotkey_id, _current_hotkey
     hotkey_str = load_custom_hotkey()
@@ -54,7 +54,7 @@ def register_hotkey(api):
         print(f"Failed to register hotkey '{hotkey_str}': {e}", flush=True)
 
 
-def _unregister():
+def _unregister() -> None:
     """Remove the currently registered hotkey if any."""
     global _hotkey_id
     if _hotkey_id is not None:
@@ -65,12 +65,12 @@ def _unregister():
         _hotkey_id = None
 
 
-def set_custom_hotkey(api, new_hotkey):
+def set_custom_hotkey(api: object, new_hotkey: str) -> None:
     """Change the hotkey at runtime: unregister old, save, register new."""
     save_custom_hotkey(new_hotkey)
     register_hotkey(api)
 
 
-def setup_hotkey(api):
+def setup_hotkey(api: object) -> None:
     """Entry point called from main to wire up the global hotkey."""
     register_hotkey(api)

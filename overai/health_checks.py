@@ -13,7 +13,7 @@ import functools
 from pathlib import Path
 
 
-def get_log_dir():
+def get_log_dir() -> Path:
     """Return a persistent log directory under %APPDATA%/overai/."""
     appdata = os.environ.get("APPDATA", str(Path.home()))
     log_dir = Path(appdata) / "overai"
@@ -28,7 +28,7 @@ CRASH_THRESHOLD = 3
 CRASH_TIME_WINDOW = 60
 
 
-def get_system_info():
+def get_system_info() -> str:
     """Return a string with Windows version, Python version, etc."""
     win_ver = platform.platform()
     python_version = platform.python_version()
@@ -41,7 +41,7 @@ def get_system_info():
     return info
 
 
-def check_crash_loop():
+def check_crash_loop() -> None:
     """Read and update the crash counter; exit if a crash loop is detected."""
     current_time = time.time()
     count = 0
@@ -81,7 +81,7 @@ def check_crash_loop():
         sys.exit(1)
 
 
-def reset_crash_counter():
+def reset_crash_counter() -> None:
     """Reset the crash counter after a successful run."""
     if os.path.exists(CRASH_COUNTER_FILE):
         try:

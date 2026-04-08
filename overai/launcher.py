@@ -15,14 +15,14 @@ REGISTRY_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 REGISTRY_VALUE_NAME = APP_TITLE
 
 
-def get_executable():
+def get_executable() -> str:
     """Return the command that launches OverAI (frozen exe or python -m)."""
     if getattr(sys, "frozen", False):
         return sys.executable
     return f'"{sys.executable}" -m {APP_TITLE.lower()}'
 
 
-def install_startup():
+def install_startup() -> bool:
     """Add OverAI to Windows login startup via the Registry."""
     try:
         cmd = get_executable()
@@ -38,7 +38,7 @@ def install_startup():
         return False
 
 
-def uninstall_startup():
+def uninstall_startup() -> bool:
     """Remove OverAI from Windows login startup."""
     try:
         key = winreg.OpenKey(
@@ -56,7 +56,7 @@ def uninstall_startup():
         return False
 
 
-def is_startup_installed():
+def is_startup_installed() -> bool:
     """Check if OverAI is currently registered as a startup app."""
     try:
         key = winreg.OpenKey(

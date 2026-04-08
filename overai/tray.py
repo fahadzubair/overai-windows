@@ -15,7 +15,7 @@ from .launcher import install_startup, uninstall_startup
 _tray_icon = None
 
 
-def _create_default_icon():
+def _create_default_icon() -> Image.Image:
     """Generate a simple fallback icon if logo.png is missing."""
     img = Image.new("RGBA", (64, 64), (30, 41, 59, 255))
     draw = ImageDraw.Draw(img)
@@ -24,7 +24,7 @@ def _create_default_icon():
     return img
 
 
-def _load_icon():
+def _load_icon() -> Image.Image:
     """Load the tray icon from logo.png or fall back to a generated one."""
     try:
         return Image.open(LOGO_PATH)
@@ -32,7 +32,7 @@ def _load_icon():
         return _create_default_icon()
 
 
-def setup_tray(api):
+def setup_tray(api: object) -> None:
     """Build and run the system tray icon + menu in a background thread."""
     global _tray_icon
 
