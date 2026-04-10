@@ -8,13 +8,13 @@ A sleek, always-on-top Windows overlay that brings AI chat services (Grok, ChatG
 
 ## Features
 
-- **Floating overlay** — frameless, always-on-top window with adjustable transparency
-- **Hidden from screen share** — invisible in Zoom, Teams, Meet, and other screen-sharing tools
-- **AI service switching** — switch between Grok, ChatGPT, Claude, Gemini, and DeepSeek via dropdown
-- **Global hotkey** — toggle visibility with Ctrl+G (customizable)
-- **System tray** — access all controls from the Windows system tray
-- **Launch at login** — optional auto-start via Windows Registry
-- **Crash protection** — built-in crash loop detection and error logging
+- **Floating overlay** - frameless, always-on-top window with adjustable transparency
+- **Hidden from screen share** - invisible in Zoom, Teams, Meet, and other screen-sharing tools
+- **AI service switching** - switch between Grok, ChatGPT, Claude, Gemini, and DeepSeek via dropdown
+- **Global hotkey** - toggle visibility with Ctrl+G (customizable)
+- **System tray** - access all controls from the Windows system tray
+- **Launch at login** - optional auto-start via Windows Registry
+- **Crash protection** - built-in crash loop detection and error logging
 
 ## Architecture
 
