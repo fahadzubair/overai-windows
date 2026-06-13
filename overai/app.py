@@ -8,6 +8,8 @@ into each page via JavaScript — mirroring how the macOS version layers native
 AppKit controls on top of WKWebView.
 """
 
+from __future__ import annotations
+
 import ctypes
 import ctypes.wintypes
 import webview
